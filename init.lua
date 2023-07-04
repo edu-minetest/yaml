@@ -156,8 +156,10 @@ if (not rawget(_G, MOD_NAME)) then
 
   local function writeModDataConfig(filename, content, modName, mode)
     local pattern = "(.*" .. DIR_DELIM .. ")worlds" .. DIR_DELIM .. ".*" .. DIR_DELIM
-    local modDataPath = string.match(WORLD_PATH, pattern) .. "mod_data" .. DIR_DELIM ..
-    modName .. DIR_DELIM .. filename
+    local p = string.match(WORLD_PATH, pattern)
+    local modDataDir =  "mod_data" .. DIR_DELIM .. modName .. DIR_DELIM
+    if p ~= nil then modDataDir = p .. modDataDir end
+    local modDataPath = modDataDir .. filename
 
     return writeYamlFile(modDataPath, content, mode)
   end
